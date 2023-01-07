@@ -1,92 +1,89 @@
 # go-basic
 
-golang基础框架
+golang基础框架，基于gin框架
 
-## Getting started
+集成以下功能与特性
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+* 严格的目录分层
+* cors跨域
+* pprof性能分析
+* 统一errors和输出
+* gorm
+* go-redis
+* logrus日志，生产环境json可供logstash导入
+* cronjob定时任务
+* jwt登录
+* migrations数据库迁移
+* 路由分层
+* makefile
+* docker-compose一键部署
+* live reload：需要安装air：`go install github.com/cosmtrek/air@latest`
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
+## 开始使用
 
-## Add your files
+* 把`.env.example`复制为`.env`文件，并进行配置填写
 
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
+### 目录结构
 
+`assets` 静态文件
+
+`constants` 常量文件
+
+`controller` 控制器层文件
+
+`models` 模型层文件
+
+`utils` 工具类文件，其中`helper.go`为全局辅助函数文件
+
+`cronjob` 定时任务文件，语法请看：`https://github.com/robfig/cron`
+
+`errors` 错误定义文件
+
+`interface` 接口定义文件
+
+`migrations` 数据库迁移文件（需安装goose: `go install github.com/pressly/goose/v3/cmd/goose@latest`）
+
+`proto` protobuf文件
+
+`repository` 数据访问层文件
+
+`response` 响应定义文件，输出的结构定义可以写在此处
+
+`routes` 路由文件，可以有多个路由文件，新增时，在`router.go`文件中注册
+
+`service` 服务层，提供各种服务
+
+`usecase` 用例层文件
+
+### 分层说明
+
+![img.png](assets/images/layers.png)
+
+各层通信时，必须通过interface，例如：user控制器调用`usecase`中的`GetGender`方法，就在`interface/usecase`文件夹下新建一个`user_usecase`:
+
+```go
+package usecase
+
+type UserUseCase interface {
+	GetGender(userId int) (int, error)
+}
 ```
-cd existing_repo
-git remote add origin http://gitlab.imechos.com/moka/basics/go-basic.git
-git branch -M main
-git push -uf origin main
+
+同理，`UserUseCase`调用`repository`中的`GetProfile`时，也需要在`interface/repository`文件夹下新建一个`user_repository`:
+
+```go
+package usecase
+
+type UserRepository interface {
+	GetProfile(userId int) (*model.User, error)
+}
 ```
 
-## Integrate with your tools
+### 其他说明
 
-- [ ] [Set up project integrations](http://gitlab.imechos.com/moka/basics/go-basic/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+* 写接口请遵守Restful API规范
+* 新增环境变量`KEY`，可以在`.env`文件中加`KEY=value`，获取其值用`os.Getenv(KEY)`
+* 使用jwt：在路由文件中新增：`r.Use(middleware.AuthMiddleware)`，生成jwt token用`service.GenerateToken(UID)`
+* 在控制器中获取用户ID可以用`userId, _ := c.Get("UID")`
+* 怎么写错误代码：可以参照`errors/auth.go`文件的写法
+* 控制器返回数据用`response.Success`或者`response.Fail`方法，如：`response.Success(c, "Hello World")`、`response.Fail(c, errors.EMPTY_TOKEN)`

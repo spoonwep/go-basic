@@ -87,3 +87,4 @@ type UserRepository interface {
 * 在控制器中获取用户ID可以用`userId, _ := c.Get("UID")`
 * 怎么写错误代码：可以参照`errors/auth.go`文件的写法
 * 控制器返回数据用`response.Success`或者`response.Fail`方法，如：`response.Success(c, "Hello World")`、`response.Fail(c, errors.EMPTY_TOKEN)`
+* pprof使用方法请看：https://github.com/gin-contrib/pprof#use-the-pprof-tool

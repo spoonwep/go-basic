@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 	"go-basic/middleware"
 	"go-basic/routes"
@@ -8,6 +9,10 @@ import (
 
 func InitRouter() *gin.Engine {
 	r := gin.Default()
+	//pprof middleware
+	if IsProduction() == false {
+		pprof.Register(r)
+	}
 	//Error middleware
 	r.Use(middleware.ErrorMiddleware())
 	//Cors middleware

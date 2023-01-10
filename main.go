@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/sirupsen/logrus"
+	"go-basic/constants"
 	"go-basic/utils"
 	"os"
 )
@@ -21,6 +22,8 @@ func main() {
 	}
 	//初始化定时任务（需要在web服务之前初始化，否则web服务无法启动）
 	utils.InitCronjob()
+	//初始化根目录
+	initRoot()
 	//开启WebServer
 	startWebServer()
 }
@@ -38,4 +41,8 @@ func startWebServer() {
 	if err != nil {
 		logrus.Fatal(err.Error())
 	}
+}
+
+func initRoot() {
+	constants.BasePath = utils.GetBasePath()
 }

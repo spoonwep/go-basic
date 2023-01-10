@@ -6,8 +6,11 @@ type BaseError struct {
 	Data interface{} `json:"data"`
 }
 
-var NORMAL = NewError(200, "success")
-var SERVER_ERROR = NewError(500, "Server Error")
+var (
+	NORMAL        = NewError(200, "success")
+	NO_PERMISSION = NewError(403, "No Permission")
+	SERVER_ERROR  = NewError(500, "Server Error")
+)
 
 func (e *BaseError) Error() string {
 	return e.Msg

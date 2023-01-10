@@ -5,4 +5,7 @@ services:
     build:
       context: .
     volumes:
+      # 如果用,env中设置了ENABLE_CASBIN=true，那么取消
+      #- ./model.conf:/assets/casbin/model.conf
+      #- ./policy.csv:/assets/casbin/policy.csv
       - .:/app

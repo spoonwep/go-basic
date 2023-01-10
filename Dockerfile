@@ -15,4 +15,4 @@ FROM alpine:latest
 
 WORKDIR /app/
 COPY --from=base /app/main .
-CMD ["./main"]
+ENTRYPOINT ["./main"]

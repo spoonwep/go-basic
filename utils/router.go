@@ -8,6 +8,9 @@ import (
 )
 
 func InitRouter() *gin.Engine {
+	if IsProduction() {
+		gin.SetMode(gin.ReleaseMode)
+	}
 	r := gin.Default()
 	//pprof middleware
 	if IsProduction() == false {

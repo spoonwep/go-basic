@@ -83,7 +83,7 @@ type UserRepository interface {
 
 * 写接口请遵守Restful API规范
 * 新增环境变量`KEY`，可以在`.env`文件中加`KEY=value`，获取其值用`os.Getenv(KEY)`
-* 使用jwt：在路由文件中新增：`r.Use(middleware.AuthMiddleware)`，生成jwt token用`service.GenerateToken(UID)`
+* 使用jwt：在路由文件中新增：`r.Use(middleware.AuthMiddleware)`，生成jwt token用`service.GenerateToken(UID)`，前端请求头必须是：`Authorization: Bearer TOKEN`这种标准格式
 * 在控制器中获取用户ID可以用`userId, _ := c.Get("UID")`
 * 怎么写错误代码：可以参照`errors/auth.go`文件的写法
 * 控制器返回数据用`response.Success`或者`response.Fail`方法，如：`response.Success(c, "Hello World")`、`response.Fail(c, errors.EMPTY_TOKEN)`

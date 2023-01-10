@@ -3,33 +3,32 @@ package middleware
 import (
 	"github.com/gin-gonic/gin"
 	"go-basic/errors"
+	"go-basic/response"
 	auth "go-basic/service"
-	"net/http"
+	"strings"
 )
 
 func AuthMiddleware(c *gin.Context) {
 	//从headers中取出token
-	response := errors.NORMAL
-	token := c.GetHeader("token")
+	authHeader := c.GetHeader("Authorization")
+	prefix := "Bearer "
+	if !strings.HasPrefix(authHeader, prefix) {
+		response.Fail(c, errors.WRONG_TOKEN_FORMAT)
+		return
+	}
+	token := authHeader[strings.Index(authHeader, prefix)+len(prefix):]
 	if token == "" {
-		response = errors.EMPTY_TOKEN
+		response.Fail(c, errors.EMPTY_TOKEN)
+		return
 	} else {
 		//验证token合法性
 		_, err := auth.ParseToken(token)
 		if err != nil {
-			response = errors.INVALID_TOKEN
+			response.Fail(c, errors.INVALID_TOKEN)
+			return
 		}
 	}
-	if response.Code != 200 {
-		c.JSON(http.StatusOK, gin.H{
-			"code": response.Code,
-			"msg":  response.Msg,
-			"data": nil,
-		})
-		c.Abort()
-		return
-	}
-	//霍去病设置用户UID
+	//获取并设置用户UID
 	userID, _ := auth.GetUID(token)
 	c.Set("UID", userID)
 	c.Next()

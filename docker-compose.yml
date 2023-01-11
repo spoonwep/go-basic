@@ -7,7 +7,9 @@ services:
     ports:
       - 8899:8899
     volumes:
-      # 如果用,env中设置了ENABLE_CASBIN=true，那么取消
+      # 如果用,env中设置了ENABLE_CASBIN=true，那么取消注释
       #- ./model.conf:/assets/casbin/model.conf
       #- ./policy.csv:/assets/casbin/policy.csv
+      # 如果用了sqlite，那么取消注释
+      #- ./sqlite.db:/assets/sqlite/sqlite.db
       - .:/app

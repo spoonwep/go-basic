@@ -13,9 +13,7 @@ func main() {
 	//初始化logger
 	utils.InitLogger()
 	//初始化Database
-	if os.Getenv("DB_HOST") != "" {
-		utils.InitDB()
-	}
+	utils.InitDB()
 	//初始化Redis
 	if os.Getenv("REDIS_HOST") != "" {
 		utils.InitRedis()

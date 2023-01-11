@@ -19,6 +19,7 @@ golang基础框架，基于gin框架
 * makefile
 * docker-compose一键部署
 * live reload：需要安装air：`go install github.com/cosmtrek/air@latest`
+* 支持MySQL、sqlite
 
 ## 开始使用
 

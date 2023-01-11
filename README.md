@@ -20,6 +20,7 @@ golang基础框架，基于gin框架
 * docker-compose一键部署
 * live reload：需要安装air：`go install github.com/cosmtrek/air@latest`
 * 支持MySQL、sqlite
+* 支持参数validator，文档：https://pkg.go.dev/github.com/go-playground/validator/v10
 
 ## 开始使用
 

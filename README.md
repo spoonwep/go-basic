@@ -16,11 +16,12 @@ golang基础框架，基于gin框架
 * jwt登录
 * migrations数据库迁移
 * 路由分层
-* makefile
+* 支持makefile，快捷运行指令
 * docker-compose一键部署
 * live reload：需要安装air：`go install github.com/cosmtrek/air@latest`
 * 支持MySQL、sqlite
 * 支持参数validator，文档：https://pkg.go.dev/github.com/go-playground/validator/v10
+* 支持golangci-lint，直接运行`make lint`即可，如果报错，需先安装golangci-lint
 
 ## 开始使用
 
@@ -82,7 +83,7 @@ type UserRepository interface {
 }
 ```
 
-### 其他说明
+### 其他使用说明
 
 * 新增环境变量`KEY`，可以在`.env`文件中加`KEY=value`，获取其值用`os.Getenv(KEY)`
 * 使用jwt：在路由文件中新增：`r.Use(middleware.AuthMiddleware)`，生成jwt token用`service.GenerateToken(UID)`，前端请求头必须是：`Authorization: Bearer TOKEN`这种标准格式
@@ -93,3 +94,9 @@ type UserRepository interface {
 * casbin权限管理文件在`assets/casbin`目录下，如果要启用，可以在路由文件`web.go`中添加：`r.Use(middleware.NewCasbinMiddleware())`，用了casbin的中间件，就不需要`AuthMiddleware`了
   - model语法看：https://casbin.org/zh/docs/syntax-for-models
   - policy语法看：https://casbin.org/zh/docs/policy-storage（policy第二个参数是用户ID）
+
+### 代码规范
+
+除了上述一些目录规范，还有以下规范需要注意
+
+* 

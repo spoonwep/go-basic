@@ -13,7 +13,7 @@ func InitRouter() *gin.Engine {
 	}
 	r := gin.Default()
 	//pprof middleware
-	if IsProduction() == false {
+	if !IsProduction() {
 		pprof.Register(r)
 	}
 	//Error middleware

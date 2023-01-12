@@ -43,11 +43,11 @@ func NewCasbinMiddleware() gin.HandlerFunc {
 		//检查权限
 		passed, token, err := md.EnsurePermissions(c)
 		if err != nil {
-			c.AbortWithError(200, err)
+			_ = c.AbortWithError(200, err)
 			return
 		}
 		if !passed {
-			c.AbortWithError(http.StatusOK, errors.NO_PERMISSION)
+			_ = c.AbortWithError(http.StatusOK, errors.NO_PERMISSION)
 		}
 		//获取并设置用户UID
 		userID, _ := auth.GetUID(token)

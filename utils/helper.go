@@ -8,26 +8,17 @@ import (
 
 // IsLocal 判断是否是本地开发环境
 func IsLocal() bool {
-	if os.Getenv("APP_ENV") == "local" {
-		return true
-	}
-	return false
+	return os.Getenv("APP_ENV") == "local"
 }
 
 // IsDevelopment 判断是否是测试环境
 func IsDevelopment() bool {
-	if os.Getenv("APP_ENV") == "development" {
-		return true
-	}
-	return false
+	return os.Getenv("APP_ENV") == "development"
 }
 
 // IsProduction 判断是否是生产环境
 func IsProduction() bool {
-	if os.Getenv("APP_ENV") == "production" {
-		return true
-	}
-	return false
+	return os.Getenv("APP_ENV") == "production"
 }
 
 // GetBasePath 获取根目录

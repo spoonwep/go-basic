@@ -15,6 +15,5 @@ func Success(c *gin.Context, data interface{}) {
 }
 
 func Fail(c *gin.Context, err error) {
-	c.Error(err)
-	return
+	_ = c.Error(err)
 }

@@ -35,7 +35,7 @@ func (md *CasbinMiddleware) EnsurePermissions(c *gin.Context) (bool, string, err
 func NewCasbinMiddleware() gin.HandlerFunc {
 	e, err := casbin.NewEnforcer(constants.BasePath+"/assets/casbin/model.conf", constants.BasePath+"/assets/casbin/policy.csv")
 	if err != nil {
-		logrus.Fatal(err.Error())
+		logrus.Warn(err.Error())
 		return nil
 	}
 	md := &CasbinMiddleware{e}

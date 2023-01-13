@@ -9,8 +9,7 @@ import (
 )
 
 var (
-	uni      *ut.UniversalTranslator
-	validate *validator.Validate
+	uni *ut.UniversalTranslator
 )
 
 func InitValidator() {
@@ -18,6 +17,6 @@ func InitValidator() {
 	uni = ut.New(translator, translator)
 	trans, _ := uni.GetTranslator("zh")
 	constants.Validate = validator.New()
-	zh2.RegisterDefaultTranslations(constants.Validate, trans)
+	_ = zh2.RegisterDefaultTranslations(constants.Validate, trans)
 	constants.Translator = trans
 }

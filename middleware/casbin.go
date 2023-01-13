@@ -47,7 +47,7 @@ func NewCasbinMiddleware() gin.HandlerFunc {
 			return
 		}
 		if !passed {
-			_ = c.AbortWithError(http.StatusOK, errors.NO_PERMISSION)
+			_ = c.AbortWithError(http.StatusForbidden, errors.NO_PERMISSION)
 		}
 		//获取并设置用户UID
 		userID, _ := auth.GetUID(token)

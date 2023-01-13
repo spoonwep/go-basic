@@ -2,8 +2,8 @@ package middleware
 
 import (
 	"github.com/gin-gonic/gin"
+	"go-basic/delivery/response"
 	"go-basic/errors"
-	"go-basic/response"
 	auth "go-basic/service"
 	"strings"
 )

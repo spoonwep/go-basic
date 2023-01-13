@@ -7,9 +7,10 @@ type BaseError struct {
 }
 
 var (
-	NORMAL        = NewError(200, "success")
-	NO_PERMISSION = NewError(403, "No Permission")
-	SERVER_ERROR  = NewError(500, "Server Error")
+	NORMAL           = NewError(200, "Success")
+	NO_PERMISSION    = NewError(403, "No Permission")
+	SERVER_ERROR     = NewError(500, "Server Error")
+	VALIDATION_ERROR = NewError(422, "Validation Error")
 )
 
 func (e *BaseError) Error() string {

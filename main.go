@@ -29,6 +29,8 @@ func main() {
 func startWebServer() {
 	//初始化路由
 	router := utils.InitRouter()
+	//初始化validator
+	utils.InitValidator()
 	//启动WebServer
 	var err error
 	if os.Getenv("ENABLE_HTTPS") == "true" {

@@ -2,6 +2,7 @@ package main
 
 import (
 	"github.com/sirupsen/logrus"
+	"go-basic/bootstrap"
 	"go-basic/constants"
 	"go-basic/utils"
 	"os"
@@ -9,17 +10,17 @@ import (
 
 func main() {
 	//初始化配置文件
-	utils.InitConfig()
+	bootstrap.InitConfig()
 	//初始化logger
-	utils.InitLogger()
+	bootstrap.InitLogger()
 	//初始化Database
-	utils.InitDB()
+	bootstrap.InitDB()
 	//初始化Redis
 	if os.Getenv("REDIS_HOST") != "" {
-		utils.InitRedis()
+		bootstrap.InitRedis()
 	}
 	//初始化定时任务（需要在web服务之前初始化，否则web服务无法启动）
-	utils.InitCronjob()
+	bootstrap.InitCronjob()
 	//初始化根目录
 	initRoot()
 	//开启WebServer
@@ -28,9 +29,9 @@ func main() {
 
 func startWebServer() {
 	//初始化路由
-	router := utils.InitRouter()
+	router := bootstrap.InitRouter()
 	//初始化validator
-	utils.InitValidator()
+	bootstrap.InitValidator()
 	//启动WebServer
 	var err error
 	if os.Getenv("ENABLE_HTTPS") == "true" {

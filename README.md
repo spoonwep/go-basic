@@ -31,6 +31,8 @@ golang基础框架，基于gin框架
 
 * `assets` 静态文件
 
+* `bootstrap` 框架启动文件
+
 * `constants` 常量文件
 
 * `controller` 控制器层文件
@@ -67,7 +69,7 @@ golang基础框架，基于gin框架
 
 ![img.png](assets/images/layers.png)
 
-各层通信时，必须通过interface，例如：user控制器调用`usecase`中的`GetGender`方法，就在`interface/usecase`文件夹下新建一个`user_usecase`:
+各层通信时，必须通过interface，例如：user控制器调用`usecase`中的`GetGender`方法，就在`interface/usecase_iface`文件夹下新建一个`user_usecase`:
 
 ```
 package usecase
@@ -77,7 +79,7 @@ type UserUseCase interface {
 }
 ```
 
-同理，`UserUseCase`调用`repository`中的`GetProfile`时，也需要在`interface/repository`文件夹下新建一个`user_repository`:
+同理，`UserUseCase`调用`repository`中的`GetProfile`时，也需要在`interface/repository_iface`文件夹下新建一个`user_repository`:
 
 ```
 package usecase

@@ -1,19 +1,20 @@
-package utils
+package bootstrap
 
 import (
 	"github.com/gin-contrib/pprof"
 	"github.com/gin-gonic/gin"
 	"go-basic/middleware"
 	"go-basic/routes"
+	"go-basic/utils"
 )
 
 func InitRouter() *gin.Engine {
-	if IsProduction() {
+	if utils.IsProduction() {
 		gin.SetMode(gin.ReleaseMode)
 	}
 	r := gin.Default()
 	//pprof middleware
-	if !IsProduction() {
+	if !utils.IsProduction() {
 		pprof.Register(r)
 	}
 	//Error middleware

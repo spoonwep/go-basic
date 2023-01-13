@@ -1,4 +1,4 @@
-package utils
+package bootstrap
 
 import (
 	"github.com/go-playground/locales/zh"

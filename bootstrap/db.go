@@ -1,7 +1,9 @@
-package utils
+package bootstrap
 
 import (
 	"github.com/sirupsen/logrus"
+	"go-basic/constants"
+	"go-basic/utils"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
@@ -9,12 +11,11 @@ import (
 	"os"
 )
 
-var DB *gorm.DB
 var gormLogger logger.Interface
 
 func InitDB() {
 	var driver = os.Getenv("DB_DRIVER")
-	if IsLocal() || IsDevelopment() {
+	if utils.IsLocal() || utils.IsDevelopment() {
 		gormLogger = logger.Default
 	} else {
 		gormLogger = logger.Discard
@@ -30,7 +31,7 @@ func InitDB() {
 	default:
 		logrus.Fatal("Unsupported Driver: " + driver)
 	}
-	DB, err = gorm.Open(dialector, &gorm.Config{
+	constants.DB, err = gorm.Open(dialector, &gorm.Config{
 		Logger: gormLogger,
 	})
 	if err != nil {
@@ -47,6 +48,6 @@ func initMysql() gorm.Dialector {
 }
 
 func initSqlite() gorm.Dialector {
-	dbPath := GetBasePath() + "/assets/sqlite/sqlite.db"
+	dbPath := utils.GetBasePath() + "/assets/sqlite/sqlite.db"
 	return sqlite.Open(dbPath)
 }

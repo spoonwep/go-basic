@@ -135,6 +135,11 @@ type UserRepository interface {
   - 创建例子：`make goose-create name="create_users_table"`
   - 执行迁移：`make goose-up`，回滚迁移：`make goose-down`
 
+### 示例项目
+
+auth-api `http://gitlab.imechos.com/moka/refactor/auth-api`
+public-api `http://gitlab.imechos.com/moka/refactor/public-api`
+
 ### 代码规范
 
 除了上述一些目录规范，还有以下规范需要注意

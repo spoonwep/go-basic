@@ -1,2 +1,2 @@
-p, 1, /, GET
-p, 2, /test/*, *
+p, 1, moka, /admin/*, *
+g, 1, admin, *

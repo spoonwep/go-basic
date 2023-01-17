@@ -19,12 +19,15 @@ func ErrorMiddleware() gin.HandlerFunc {
 					"msg":  baseErr.Msg,
 					"data": baseErr.Data,
 				})
+				return
 			} else {
-				c.JSON(http.StatusOK, gin.H{
+				headerCode := c.Writer.Status()
+				c.JSON(headerCode, gin.H{
 					"code": errors.SERVER_ERROR.Code,
 					"msg":  errors.SERVER_ERROR.Msg,
 					"data": err.Error(),
 				})
+				return
 			}
 		}
 	}

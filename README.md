@@ -100,12 +100,22 @@ type UserRepository interface {
 * casbin权限管理文件在`assets/casbin`目录下，如果要启用，可以在路由文件`web.go`中添加：`r.Use(middleware.NewCasbinMiddleware())`，用了casbin的中间件，就不需要`AuthMiddleware`了
   - model语法看：https://casbin.org/zh/docs/syntax-for-models
   - policy语法看：https://casbin.org/zh/docs/policy-storage（policy第二个参数是用户ID）
+  - 添加、删除规则的函数可以在`service/casbin`中看到，也可以对其进行扩展。示例：
+```
+    // 第一个参数是用户id，第二个参数是app类型，第三个参数是路由，第四个参数是请求方法
+	err := service.RemovePolicy(c, "3", "lemon", "/admin/users", "GET")
+	if err != nil {
+		response.Fail(c, err)
+		return
+    }
+```
 * 参数校验写法例子：
 ```
     //如果是验证struct
     var loginReq request.LoginRequest
 	if err := c.BindJSON(&loginReq); err != nil {
 		response.Fail(c, err)
+		return
 	}
 	e := service.Validate(loginReq)
 	if e != nil {
@@ -120,6 +130,10 @@ type UserRepository interface {
 		return
 	}
 ```
+
+* 怎么用goose实现数据库迁移？可以看`makefile`文件
+  - 创建例子：`make goose-create name="create_users_table"`
+  - 执行迁移：`make goose-up`，回滚迁移：`make goose-down`
 
 ### 代码规范
 

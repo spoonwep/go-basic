@@ -2,7 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"go-basic/response"
+	"go-basic/delivery/response"
 )
 
 func IndexHandler(c *gin.Context) {

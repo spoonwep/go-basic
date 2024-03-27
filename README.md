@@ -140,8 +140,6 @@ type UserRepository interface {
 auth-api `http://gitlab.imechos.com/moka/refactor/auth-api`
 public-api `http://gitlab.imechos.com/moka/refactor/public-api`
 
-### 代码规范
+TODOS
 
-除了上述一些目录规范，还有以下规范需要注意
-
-* 
+- [ ] 代码规范

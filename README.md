@@ -1,6 +1,6 @@
 # go-basic
 
-golang基础框架，基于gin框架
+golang基础框架，基于gin框架。已在公司项目生产环境中使用
 
 集成以下功能与特性
 
